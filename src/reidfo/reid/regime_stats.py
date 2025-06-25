@@ -1,7 +1,7 @@
 from typing import Union
 import pandas as pd
 
-from src.reidfo.core.validation_utils import check_axis_is_date, check_axis_is_date
+from src.reidfo.core.validation_utils import check_axis_is_date, check_axis_is_string
 
 
 # reviewed

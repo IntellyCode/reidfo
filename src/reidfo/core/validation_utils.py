@@ -22,16 +22,16 @@ def check_axis_is_date(obj: pd.DataFrame | pd.Series, axis: int = 0) -> None:
 # reviewed
 def check_axis_is_string(obj: pd.DataFrame | pd.Series, axis: int = 0) -> None:
     """
-    Validates that either the index (axis=0) or columns (axis=1) of a DataFrame
-    are date-like and convertible to datetime.date.
+    Validate that the specified axis contains only string labels.
 
     :param obj: The DataFrame or Series to check.
-    :param axis: Axis to check — 0 for index, 1 for columns (series only accepts index)
-    :raises ValueError: If conversion to datetime.date fails.
+    :param axis: Axis to check — 0 for index, 1 for columns (Series only accepts index)
+    :raises ValueError: If labels are not strings.
     """
     target = obj.index if axis == 0 else obj.columns
     if target.inferred_type != "string":
-        raise ValueError("All column names must be strings.")
+        name = "index" if axis == 0 else "columns"
+        raise ValueError(f"All {name} must be strings.")
 
 
 # reviewed
