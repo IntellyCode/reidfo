@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a76128e6-a347-438b-813d-d2196ccdc3fc" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/reidfo_package.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/core/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/core/data_splitting.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/core/dataframe_conversions.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/core/plot.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/core/util.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/core/validation_utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/feature_engineering/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/feature_engineering/collector/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/feature_engineering/collector/base_collector.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/feature_engineering/collector/custom_collector.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/feature_engineering/collector/half_life_collector.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/feature_engineering/collector/windowed_collector.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/feature_engineering/feature_engineer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/feature_engineering/functional_dictionary.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/feature_engineering/time_series_data.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/feature_engineering/util.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/hybrid_model/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/hybrid_model/hybrid_model.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/investing/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/investing/base_strategy.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/investing/investor.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/investing/long_only.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/investing/long_short.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/investing/short_only.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/investing/two_regime_strategy.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/logging.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/optimisation/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/optimisation/loss/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/optimisation/loss/base_loss.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/optimisation/loss/hybrid_loss.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/optimisation/loss/regime_loss.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/optimisation/loss/sjm_lambda_loss.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/optimisation/loss/sjm_xgboost_loss.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/optimisation/multiprocessing/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/optimisation/multiprocessing/clear_util.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/optimisation/multiprocessing/env_control.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/optimisation/multiprocessing/multiprocessor.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/optimisation/multiprocessing/util.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/optimisation/objectives/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/optimisation/objectives/abstract.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/optimisation/objectives/base_objective.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/optimisation/objectives/hybrid_objective.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/optimisation/objectives/sjm_lambda_objective.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/optimisation/objectives/sjm_xgboost_objective.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/optimisation/objectives/smoothing_halflife_objective.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/optimisation/objectives/validation_objective.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/optimisation/plot.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/optimisation/search_spaces.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/reclu/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/reclu/distance/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/reclu/distance/base.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/reclu/distance/jaccard.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/reclu/plot.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/reclu/util.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/refo/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/refo/forecasting_model.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/refo/forecasting_quality.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/refo/xgboost.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/reid/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/reid/abstract.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/reid/jump_model.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/reid/regime_stats.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/stats/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/stats/copulas/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/stats/copulas/abstract.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/stats/copulas/base_copula.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/stats/copulas/clayton.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/stats/copulas/gumbel.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/stats/copulas/student.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/stats/correlation/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/stats/correlation/base.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/stats/correlation/kendall.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/stats/correlation/pearson.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/stats/correlation/spearman.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/stats/general_statistics.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/stats/normality/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/stats/normality/base.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/stats/normality/jarque_bera.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/stats/normality/shapiro.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/stats/stationarity/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/stats/stationarity/acf.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/stats/stationarity/base.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/stats/stationarity/hurst.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/stats/stationarity/kpss.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reidfo/stats/stationarity/pacf.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 1
+}]]></component>
+  <component name="ProjectId" id="2yzeNlhmUYPSzIF0PLwrV5Tt33X" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/zeniosd/Documents/Programs/Python/reidfo_package",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-PY-251.25410.159" />
+        <option value="bundled-python-sdk-e0ed3721d81e-36ea0e71a18c-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-251.25410.159" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a76128e6-a347-438b-813d-d2196ccdc3fc" name="Changes" comment="" />
+      <created>1750841791724</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1750841791724</updated>
+      <workItem from="1750841792736" duration="319000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
