@@ -1,0 +1,50 @@
+# Byte-compiled / cached files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+
+# Packaging / build artifacts
+.Python
+build/
+dist/
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+pip-wheel-metadata/
+pip-delete-this-directory.txt
+*.manifest
+*.spec
+
+# Project files
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+instance/
+.webassets-cache
+.scrapy
+
+# Notebooks
+.ipynb_checkpoints
+.profile_default/
+ipython_config.py
+
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store
