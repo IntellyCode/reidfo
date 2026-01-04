@@ -82,8 +82,8 @@ class DataSplitting:
             val = 0.0
 
         total = train + val
-        if total >= 1:
-            raise ValueError("Not enough data for test split")
+        if total > 1:
+            raise ValueError("Train and val proportions exceed 1.0")
 
         if isinstance(self.data, pd.Series):
             return self._slice_by_proportion(self.data, train, val)

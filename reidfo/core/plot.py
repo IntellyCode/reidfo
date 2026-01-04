@@ -32,7 +32,9 @@ def plot_prodret(ret_series: pd.Series,
         freq = pd.infer_freq(ret_series.index)
         offset = pd.tseries.frequencies.to_offset(freq)
 
-        if isinstance(first_idx, dt.date):
+        if isinstance(first_idx, pd.Timestamp):
+            new_idx = first_idx - offset
+        elif isinstance(first_idx, dt.date):
             new_idx = (pd.Timestamp(first_idx) - offset).date()
         else:
             new_idx = first_idx - offset
@@ -59,7 +61,8 @@ def plot_regimes(regimes: pd.Series,
     Plot shaded regions for hard regime labels over full y-axis height.
     """
     regimes = filter_date_range(regimes, start_date, end_date)
-    assert regimes.ndim == 1, "This version of plot_regimes expects a 1D label Series."
+    if regimes.ndim != 1:
+        raise ValueError("plot_regimes expects a 1D label Series.")
 
     n_c = len(set(regimes.dropna()))
     ax = check_axes(ax)
@@ -68,10 +71,11 @@ def plot_regimes(regimes: pd.Series,
         color_cycle = plt.rcParams['axes.prop_cycle'].by_key()['color']
         colors_regimes = [color_cycle[i % len(color_cycle)] for i in range(n_c)]
 
-    if labels_regimes is not None:
-        assert len(labels_regimes) == n_c, "The number of labels must match the number of regimes."
+    if labels_regimes is not None and len(labels_regimes) != n_c:
+        raise ValueError(f"Number of labels ({len(labels_regimes)}) must match number of regimes ({n_c}).")
 
-    assert len(colors_regimes) >= n_c, "The number of colours passed must be equal to number of regimes"
+    if len(colors_regimes) < n_c:
+        raise ValueError(f"Number of colors ({len(colors_regimes)}) must be at least the number of regimes ({n_c}).")
 
     block_ids = (regimes != regimes.shift()).cumsum()
     blocks = [group for _, group in regimes.groupby(block_ids)]

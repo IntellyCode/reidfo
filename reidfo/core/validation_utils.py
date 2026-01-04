@@ -23,11 +23,11 @@ def check_axis_is_date(obj: pd.DataFrame | pd.Series, axis: int = 0) -> None:
 def check_axis_is_string(obj: pd.DataFrame | pd.Series, axis: int = 0) -> None:
     """
     Validates that either the index (axis=0) or columns (axis=1) of a DataFrame
-    are date-like and convertible to datetime.date.
+    contain only strings.
 
     :param obj: The DataFrame or Series to check.
     :param axis: Axis to check — 0 for index, 1 for columns (series only accepts index)
-    :raises ValueError: If conversion to datetime.date fails.
+    :raises ValueError: If the axis does not contain strings.
     """
     target = obj.index if axis == 0 else obj.columns
     if target.inferred_type != "string":
@@ -41,7 +41,7 @@ def check_df_for_nans(obj: pd.DataFrame | pd.Series) -> None:
     :param obj: The DataFrame or Series to check.
     :raises ValueError: If dataframe contains NaNs
     """
-    if obj.isnull().any().any():
+    if obj.isnull().values.any():
         raise ValueError("Input data contains NaNs.")
 
 
