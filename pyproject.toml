@@ -10,6 +10,8 @@ dependencies = [
   "loguru",
   "matplotlib",
   "pandas",
+  "statsmodels",
+  "nolds"
 ]
 
 [tool.setuptools.packages.find]
