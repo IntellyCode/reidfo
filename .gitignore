@@ -48,3 +48,5 @@ ipython_config.py
 .idea/
 .vscode/
 .DS_Store
+
+logs

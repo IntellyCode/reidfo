@@ -1,47 +1,50 @@
+from datetime import datetime
+
 import pandas as pd
 
 
 # reviewed
-def check_axis_is_date(obj: pd.DataFrame | pd.Series, axis: int = 0) -> None:
+def check_index_is_datetime(obj: pd.DataFrame | pd.Series):
     """
-    Validates that either the index (axis=0) or columns (axis=1) of a DataFrame
-    are date-like and convertible to datetime.date.
+    Validates that the index contains only datetime objects.
 
     :param obj: The DataFrame or Series to check.
-    :param axis: Axis to check — 0 for index, 1 for columns (series only accepts index)
-    :raises ValueError: If conversion to datetime.date fails.
+    :raises ValueError: If the index does not contain only datetime objects.
     """
-    target = obj.index if axis == 0 else obj.columns
-    try:
-        _ = pd.to_datetime(target).date
-    except Exception:
-        name = "index" if axis == 0 else "columns"
-        raise ValueError(f"{name.capitalize()} must be convertible to datetime.date.")
+    index = obj.index
+    if pd.api.types.is_datetime64_any_dtype(index):
+        return
+    if not all(isinstance(value, datetime) for value in index):
+        raise ValueError("Index must contain only datetime objects.")
+
 
 
 # reviewed
-def check_axis_is_string(obj: pd.DataFrame | pd.Series, axis: int = 0) -> None:
+def check_columns_are_strings(obj: pd.DataFrame):
     """
-    Validates that either the index (axis=0) or columns (axis=1) of a DataFrame
-    contain only strings.
+    Validates that the DataFrame columns contain only strings.
 
-    :param obj: The DataFrame or Series to check.
-    :param axis: Axis to check — 0 for index, 1 for columns (series only accepts index)
-    :raises ValueError: If the axis does not contain strings.
+    :param obj: The DataFrame to check.
+    :raises ValueError: If columns are not strings.
     """
-    target = obj.index if axis == 0 else obj.columns
-    if target.inferred_type != "string":
-        raise ValueError("All column names must be strings.")
+    if not isinstance(obj, pd.DataFrame):
+        raise ValueError("Input must be a DataFrame.")
+    if not all(isinstance(value, str) for value in obj.columns):
+        raise ValueError("All columns must be strings.")
 
 
 # reviewed
-def check_df_for_nans(obj: pd.DataFrame | pd.Series) -> None:
+def check_df_for_nans(obj: pd.DataFrame | pd.Series):
     """
-    Validates that the dataframe does not contain NaNs
+    Validates that the dataframe or series does not contain NaNs
     :param obj: The DataFrame or Series to check.
-    :raises ValueError: If dataframe contains NaNs
+    :raises ValueError: If data contains NaNs
     """
-    if obj.isnull().values.any():
+    if isinstance(obj, pd.Series):
+        has_nans = obj.isnull().any()
+    else:
+        has_nans = obj.isnull().to_numpy().any()
+    if has_nans:
         raise ValueError("Input data contains NaNs.")
 
 
@@ -55,12 +58,7 @@ def validate_minimum_regimes(labels: pd.Series | pd.DataFrame, required: int = 2
     :raises ValueError: If the number of regimes is not exactly equal to `required`.
     """
     if isinstance(labels, pd.Series):
-        n_regimes = labels.nunique(dropna=True)
-        if n_regimes != required:
-            raise ValueError(f"Exactly {required} regimes required; found {n_regimes}.")
-    elif isinstance(labels, pd.DataFrame):
-        regimes_per_row = labels.apply(lambda row: row.nunique(dropna=True), axis=1)
-        if not regimes_per_row.eq(required).all():
-            raise ValueError(f"Each row must contain exactly {required} regimes.")
-    else:
-        raise TypeError("Labels must be a pandas Series or DataFrame.")
+        labels = labels.to_frame()
+    regimes_per_column = labels.nunique(axis=0, dropna=True)
+    if not regimes_per_column.eq(required).all():
+        raise ValueError(f"Each column must contain exactly {required} regimes.")

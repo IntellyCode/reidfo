@@ -1,107 +1,73 @@
-from typing import Optional, Union
 import datetime as dt
+from typing import Dict, Hashable, List, Optional, Union
 import pandas as pd
 
 from .validation_utils import check_df_for_nans
-from ..logging import setup_logger
-logger = setup_logger(__name__)
 
 
-# reviewed
 class DataSplitting:
-    def __init__(self, data: Union[pd.Series, pd.DataFrame]):
+    def __init__(self, data: pd.Series | pd.DataFrame) -> None:
         """
-        Initialize a DataSplitting object.
-
-        :param data: Time series or dataframe to be split. All rows must have the same length. No NaNs allowed.
-        :raises ValueError: If data contains NaNs or uneven lengths.
+        Initialize with a time series or dataframe.
+        Series are converted to a single-column dataframe named "series".
         """
-        self.data = data.copy()
+        self.data: pd.DataFrame = self._to_frame(data)
         check_df_for_nans(self.data)
+    
+    @staticmethod
+    def _to_frame(data: Union[pd.Series, pd.DataFrame]) -> pd.DataFrame:
+        if isinstance(data, pd.Series):
+            return data.to_frame(name="series")
+        return data.copy()
 
-    def split(self,
-              train: Union[float, dt.date],
-              val: Optional[Union[float, dt.date]] = None
-              ) -> Union[list[pd.Series], dict[str, pd.DataFrame]]:
+    def split(self, train: float | dt.datetime, val: Optional[float | dt.datetime] = None) -> Dict[str, List[pd.Series]]:
         """
         Splits the data into train/test/validation sets.
 
-        :param train: Either float (proportion) or date (column/index label)
+        :param train: Either float (proportion) or date (index label)
         :param val: Optional. Same type as `train`. If None, treated as zero-length or full tail.
-        :return: List of Series [train, test, val] or dict of rows of the DataFrame.
-        :raises ValueError: On mismatched types or out-of-order dates.
+        :return: Dict mapping each column to [train, val, test].
         """
-        value_type = type(train)
-        types = {value_type} | ({type(val)} if val is not None else set())
-
-        if len(types) > 1:
-            raise TypeError("All of train, test, and val (if provided) must be of the same type.")
-
-        if value_type == float:
-            logger.info("Splitting Dataframe by proportions")
+        if val is not None and type(train) != type(val):
+            raise ValueError("train and val must be of the same type.")
+        if isinstance(train, float):
             return self._split_by_proportion(train, val)
-        elif value_type == dt.date:
-            logger.info("Splitting Dataframe by dates")
-            columns = self.data.columns if isinstance(self.data, pd.DataFrame) else self.data.index
-            val_for_ordering = val if val is not None else columns[-1]
-            if not (train < val_for_ordering):
-                raise ValueError("Expected date order: train < val (if val is provided).")
-            if train not in columns and val_for_ordering not in columns:
-                raise ValueError("Expected dates to be in the columns\n"
-                                 f"Columns: {columns}\n"
-                                 f"Train: {train}\n"
-                                 f"Val: {val_for_ordering}\n")
-            return self._split_by_date(train, val)
-        else:
-            raise TypeError("train/test/val must all be floats or datetime.date or column labels.")
+        return self._split_by_date(train, val)
 
-    @staticmethod
-    def _slice_by_proportion(series, train: float, val: Optional[float]):
-        n = len(series)
-        train_idx = int(n * train)
-        val_idx = train_idx + int(n * val)
-        return [
-            series.iloc[:train_idx],
-            series.iloc[train_idx:val_idx],
-            series.iloc[val_idx:]
-        ]
-
-    @staticmethod
-    def _slice_by_date(series, train: dt.date, val: Optional[dt.date]):
-        col_list = list(series.index)
-        idx_train = col_list.index(train)
-        idx_val = col_list.index(val) if val is not None else idx_train
-
-        train_data = series.iloc[:idx_train]
-        val_data = series.iloc[idx_train:idx_val]
-        test_data = series.iloc[idx_val:]
-        return [train_data, val_data, test_data]
-
-    def _split_by_proportion(self, train: float, val: Optional[float]) -> Union[list, dict]:
-        if val is None:
-            val = 0.0
-
-        total = train + val
-        if total > 1:
+    def _split_by_proportion(self, train: float, val: Optional[float]) -> Dict[str, List[pd.Series]]:
+        val_float: float = train if val is None else val
+        if train + val_float > 1:
             raise ValueError("Train and val proportions exceed 1.0")
+        result: Dict[str, List[pd.Series]] = {
+            col: self._slice_by_proportion(self.data[col], train, val_float)
+            for col in self.data.columns
+        }
+        return result
 
-        if isinstance(self.data, pd.Series):
-            return self._slice_by_proportion(self.data, train, val)
-        else:
-            return {k: self._slice_by_proportion(self.data.loc[k, :], train, val) for k in self.data.index}
+    @staticmethod
+    def _slice_by_proportion(series: pd.Series, train: float, val: float) -> List[pd.Series]:
+        n: int = len(series)
+        train_idx: int = int(n * train)
+        val_idx: int = train_idx + int(n * val)
+        return [series.iloc[:train_idx], series.iloc[train_idx:val_idx], series.iloc[val_idx:]]
 
-    def _split_by_date(self,
-                       train: Union[dt.date, str],
-                       val: Optional[Union[dt.date, str]]) -> Union[list, dict]:
-        if isinstance(self.data, pd.Series):
-            if train not in self.data.index or (val is not None and val not in self.data.index):
-                raise ValueError("train/val must exist in the Series index.")
-            return self._slice_by_date(self.data, train, val)
-        else:
-            if train not in self.data.columns or (val is not None and val not in self.data.columns):
-                raise ValueError("train/val must exist in the DataFrame columns.")
-            result = {}
-            for row in self.data.index:
-                row_series = self.data.loc[row]
-                result[row] = self._slice_by_date(row_series, train, val)
-            return result
+    def _split_by_date(self, train: dt.datetime, val: dt.datetime) -> Dict[str, List[pd.Series]]:
+        if train not in self.data.index or (val is not None and val not in self.data.index):
+            raise ValueError("train/val must exist in the DataFrame index.")
+        if val is None:
+            val = train
+        index_labels: List[Hashable] = list(self.data.index)
+        if index_labels.index(val) < index_labels.index(train):
+            raise ValueError("Expected date order: train < val (if val is provided).")
+        result: Dict[Hashable, List[pd.Series]] = {
+            col: self._slice_by_date(self.data[col], train, val)
+            for col in self.data.columns
+        }
+        return result
+    
+    @staticmethod
+    def _slice_by_date(series: pd.Series, train: dt.datetime, val: dt.datetime) -> List[pd.Series]:
+        columns: List[Hashable] = list(series.index)
+        idx_train: int = columns.index(train)
+        idx_val: int = columns.index(val)
+        return [series.iloc[:idx_train], series.iloc[idx_train:idx_val], series.iloc[idx_val:]]
