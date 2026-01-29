@@ -1,5 +1,5 @@
 import datetime as dt
-from typing import Optional
+from typing import Optional, Sequence
 
 import matplotlib.pyplot as plt
 from matplotlib.axes import Axes
@@ -13,8 +13,8 @@ def plot_regimes(
     start_date: dt.datetime = None,
     end_date: dt.datetime = None,
     ax: Axes = None,
-    regime_colors: Optional[list] = ["g", "r"],
-    regime_labels: Optional[list] = ["Bull", "Bear"],
+    regime_colors: Optional[Sequence] = ("g", "r"),
+    regime_labels: Optional[Sequence] = ("Bull", "Bear"),
 ) -> plt.Axes:
     """
     Plot shaded regions for hard regime labels over the full y-axis height.
@@ -46,7 +46,7 @@ def _validate_regimes(regimes: pd.Series) -> None:
         raise ValueError("plot_regimes expects a 1D label Series.")
 
 
-def _resolve_colors(n_c: int, regime_colors: Optional[list]) -> list:
+def _resolve_colors(n_c: int, regime_colors: Optional[Sequence]) -> list:
     if regime_colors is None:
         color_cycle = plt.rcParams["axes.prop_cycle"].by_key()["color"]
         return [color_cycle[i % len(color_cycle)] for i in range(n_c)]
@@ -60,7 +60,7 @@ def _validate_colors(regime_colors: list, n_c: int) -> None:
         )
 
 
-def _validate_labels(regime_labels: Optional[list], n_c: int) -> None:
+def _validate_labels(regime_labels: Optional[Sequence], n_c: int) -> None:
     if regime_labels is not None and len(regime_labels) < n_c:
         raise ValueError(
             f"Number of labels ({len(regime_labels)})must be at least the number of regimes ({n_c})."
@@ -77,7 +77,7 @@ def _plot_blocks(
     ax: plt.Axes,
     blocks: list[pd.Series],
     regime_colors: list,
-    regime_labels: Optional[list],
+    regime_labels: Optional[Sequence],
 ) -> None:
 
     start = blocks[0].index[0]
