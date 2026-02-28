@@ -50,5 +50,5 @@ def test_hurst_plot_saves_files(tmp_path, monkeypatch):
 
     hurst.plot(str(tmp_path))
 
-    assert (tmp_path / "Hurst_a.png").exists()
-    assert (tmp_path / "Hurst_b.png").exists()
+    assert (tmp_path / "Hurst_a.pdf").exists()
+    assert (tmp_path / "Hurst_b.pdf").exists()

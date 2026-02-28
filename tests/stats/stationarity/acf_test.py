@@ -42,4 +42,4 @@ def test_acf_plot_writes_files(tmp_path):
     acf_test = ACF(df)
     acf_test.plot(str(tmp_path))
 
-    assert (tmp_path / "ACF_a.png").is_file()
+    assert (tmp_path / "ACF_a.pdf").is_file()
