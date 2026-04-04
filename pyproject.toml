@@ -9,6 +9,7 @@ dependencies = [
   "jumpmodels",
   "loguru",
   "matplotlib",
+  "scikit-learn",
   "pandas",
   "statsmodels",
   "nolds"

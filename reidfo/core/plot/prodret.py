@@ -4,7 +4,9 @@ import pandas as pd
 from matplotlib.axes import Axes
 from matplotlib.ticker import PercentFormatter
 
-from .util import check_axes, filter_date_range
+from reidfo.core.preprocessing import filter_date_range
+
+from .util import check_axes
 
 def plot_prodret(ret_series: pd.Series,
                  start_date: dt.datetime = None,

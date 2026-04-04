@@ -5,7 +5,9 @@ import matplotlib.pyplot as plt
 from matplotlib.axes import Axes
 import pandas as pd
 
-from .util import check_axes, filter_date_range
+from reidfo.core.preprocessing import filter_date_range
+
+from .util import check_axes
 
 
 def plot_regimes(
